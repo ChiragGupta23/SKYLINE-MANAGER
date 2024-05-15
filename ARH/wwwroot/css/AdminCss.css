@@ -1,0 +1,46 @@
+﻿html.fixed .inner-wrapper {
+    padding-top: 60px;
+}
+html.fixed .content-body {
+    margin-left: 300px;
+}
+
+.header .logo img {
+    margin-left: 0px;
+}
+
+
+
+@media (max-width: 767px) {
+    html.fixed .content-body {
+        margin-left: 0;
+    }
+    .dataTables_length select {
+        width: 20% !important;
+        margin: 0px 10px !important;
+    }
+    .card {
+        margin-top: 20px;
+    }
+    .userbox .dropdown-menu{
+        padding:0;
+    }
+
+    html.fixed .inner-wrapper {
+        padding-top: 0px;
+    }
+    .userbox .dropdown-menu {
+        left: -5px !important;
+        padding: 10px 0 0 0;
+    }
+    .content-body {
+        padding: 20px 15px 15px;
+    }
+    .card-big-info-desc{
+        margin: 0;
+    }
+    .header .logo img {
+        margin-left: 40px;
+    }
+}
+

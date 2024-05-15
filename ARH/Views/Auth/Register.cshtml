@@ -1,0 +1,121 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<style>
+    .body-sign {
+        height: 97vh;
+        padding: 0 15px;
+        width: 100%;
+        position: relative;
+    }
+
+    html, body {
+        background: #0065bd !important;
+    }
+
+    .centered {
+        position: absolute;
+        top: 55%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 40%;
+    }
+
+    .form-group + .form-group {
+         border-top: none; 
+        padding-top: 0;
+    }
+</style>
+
+<!-- start: page -->
+<section class="body-sign" id="particles-js">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-6">
+                <div class="center-sign centered" style="padding: 25px 20px 0 20px;background: #fff; border-radius: 10px;">
+                    <div class="panel card-sign">
+                        <div class="card-title-sign">
+                            <h2 class="title font-weight-bold mt-0 mt-3">
+                                Register
+                            </h2>
+                        </div>
+                        <div class="card-body" style="background:transparent;">
+                            <form class="text-left">
+                                <div class="row">
+                                    <div class="col-lg-6 form-group">
+                                        <label class="mb-1">First Name</label>
+                                        <div class="input-group mt-3">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-user"></i>
+                                            </span>
+                                            <input type="text" class="form-control" required="" placeholder="First Name">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 form-group">
+                                        <label class="mb-1">Last Name</label>
+                                        <div class="input-group mt-3">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-user"></i>
+                                            </span>
+                                            <input type="text" class="form-control" required="" placeholder="Last Name">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 form-group mt-3">
+                                    <label class="mb-1">E-mail Address</label>
+                                    <div class="input-group mt-3">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-envelope"></i>
+                                        </span>
+                                        <input type="mail" class="form-control" required="" placeholder="Email Address">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 form-group mt-3">
+                                    <label class="mb-1">Mobile No.</label>
+                                    <div class="input-group mt-3">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-mobile"></i>
+                                        </span>
+                                        <input type="number" class="form-control" required="" placeholder="Mobile No.">
+                                    </div>
+                                </div>
+                                <div class="form-group mb-0">
+                                    <div class="row">
+                                        <div class="col-sm-12 mt-3">
+                                            <label class="mb-1">Password</label>
+                                            <div class="input-group mt-3">
+                                                <span class="input-group-text">
+                                                    <i class="fas fa-lock"></i>
+                                                </span>
+                                                <input type="password" class="form-control" required="" placeholder="Password">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <div class="checkbox-custom checkbox-default">
+                                            <input id="AgreeTerms" name="agreeterms" type="checkbox" />
+                                            <label for="AgreeTerms">I agree with <a href="#">terms of use</a></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 text-end">
+                                        <button type="submit" class="btn btn-primary mt-2 mt-3">Register</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <p class="text-center text-muted mt-3 mt-3">Already have an account <a href="~/Auth/Login" class="text-primary">Log In</a>.</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3"></div>
+
+        </div>
+    </div>
+</section>

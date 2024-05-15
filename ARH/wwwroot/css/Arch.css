@@ -1,0 +1,49 @@
+﻿html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+.login {
+    background: linear-gradient(45deg,#0065bd,#0344a5);
+    color: #fff;
+    border: 1px solid #0065bd !important;
+    border-radius: 5px;
+}
+
+    .login:hover {
+        border: 1px solid #0065bd !important;
+        background: #fff !important;
+        color: #0065bd !important;
+    }
+
+    .login:active {
+        border: 1px solid #0065bd !important;
+        background: #fff !important;
+        color: #0065bd  !important;
+    }
+
+.fs-title {
+    font-size: 20px;
+    color: #0065bd;
+    margin: 0px;
+    font-weight: normal;
+    text-align:  left
+}
+
+.accordion .card-title {
+    font-size:  16px;
+}

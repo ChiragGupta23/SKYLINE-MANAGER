@@ -1,0 +1,119 @@
+﻿@{
+	ViewData["Title"] = "Home Page";
+}
+
+@{
+	Layout = "";
+}
+
+
+<!doctype html>
+<html class="fixed">
+<head>
+	<!-- Basic -->
+	<meta charset="UTF-8">
+	<meta name="keywords" content="" />
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<!-- Mobile Metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<!-- Web Fonts  -->
+	<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+	<!-- Vendor CSS -->
+	<link rel="stylesheet" href="~/vendor/bootstrap/css/bootstrap.css" />
+	<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+	<!-- Specific Page Vendor CSS -->
+	<!-- Theme CSS -->
+	<link rel="stylesheet" href="~/css/theme.css" />
+	<!-- Theme Custom CSS -->
+	<link rel="stylesheet" href="~/css/custom.css">
+	<!-- Head Libs -->
+	<script src="~/vendor/modernizr/modernizr.js"></script>
+	<style>
+		html, body {
+			background: #F0F8FF;
+			width: 100%;
+		}
+
+		header {
+			box-shadow: -1px 0px 5px #0000003d;
+		}
+
+		footer {
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			background: #fff;
+			padding: 15px;
+			text-align: center;
+			font-size: 0.9rem;
+			box-shadow: -1px 0px 5px #0000003d;
+		}
+
+		.centered {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			width: 50%;
+			text-align: center;
+			transform: translate(-50%, -50%);
+		}
+
+			.centered p {
+				/*				background: #fff;*/
+				/*			    padding: 20px 50px;*/
+				/*			    margin: 0;*/
+				font-size: 2.5rem;
+				font-weight: bold;
+				text-transform: uppercase;
+				font-family: 'Jost', sans-serif;
+				/*			    border-radius: 50px;*/
+				/*			    box-shadow: -1px 0px 5px #0000003d;*/
+			}
+
+				.centered p span {
+					color: #0065bd !important;
+				}
+	</style>
+</head>
+<body>
+	<!-- start: page -->
+	<section class="body-sign">
+		<header class="header header-nav-menu header-nav-top-line">
+			<div class="logo-container">
+				<a href="" class="logo">
+					<img src="~/img/logo_bg.png" width="150" height="45" alt="Admin">
+				</a>
+			</div>
+			<!-- start: search & user box -->
+			<div class="header-right d-flex align-items-center ">
+				@* <a href="~/Home/CompanyRegistration" class="btn btn-white"><img src="~/img/Login/com-reg-1.png" width="30px" /> Company Registration</a>
+				<span class="mx-3 d-none d-md-block d-lg-block">|</span> *@
+				<a href="~/Auth/Login" class="btn"><img src="~/img/Login/login.png" width="20px" /> Log In</a>
+				<span class="mx-3 d-none d-md-block d-lg-block"></span>
+				@* <a href="#" class="btn"><img src="~/img/Login/Contact.png" width="20px" /> Contact Us</a> *@
+			</div>
+			<!-- end: search & user box -->
+		</header>
+
+		<div class="centered">
+			<p>Welcome to <span>Sky Line Manager</span></p>
+		</div>
+
+		<footer>
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<p class="no-gutter">All &#169; Copyright 2024. All rights reserved to Yashasvi India Solution</p>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</section>
+	<!-- end: page -->
+	<!-- Vendor -->
+	<script src="~/vendor/jquery/jquery.js"></script>
+	<script src="~/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
+	<script src="~/vendor/popper/umd/popper.min.js"></script>
+</body>
+</html>

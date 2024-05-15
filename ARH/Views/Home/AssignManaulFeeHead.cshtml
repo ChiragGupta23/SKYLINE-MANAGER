@@ -1,0 +1,77 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<link href="~/css/arch.css" rel="stylesheet" />
+
+<div class="container shadow p-5 col-lg-6">
+    <section role="main" class="content-body">
+        <!-- start: page -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <header class="card-header d-flex align-items-center justify-content-between">
+                        <h2 class="card-title">Assign Manaul FeeHead</h2>
+                    </header>
+                    <br />
+                    <div class="fs-title">Add Fee Heads</div>
+
+                    <form id="afhform" method="post">
+                        <!-- Step 1 Form Starts -->
+                        <!-- New Line Div -->
+                        <div class="row">
+                            <div class="col-lg-12 col-xl-12 mt-3">
+                                <label class="mb-2">Manul FeeHead Name</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" @* asp-for="Name" *@ placeholder="Assign Manul FeeHead" />
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <br />
+                            <div>
+                                <button type="submit" class="login">Save</button>
+                                <button type="submit" class="login">Update</button>
+                                <button type="submit" class="login">Delete</button>
+                            </div>
+                        </div>
+
+                    </form>
+                    <div class="row">
+                        <div class="col-lg-12 col-xl-12 mt-3">
+                            <table class="table table-bordered">
+
+                                <thead>
+                                    <tr>
+                                        <th scope="col-4">FeeHeadID</th>
+                                        <th scope="col-4">FeeHeadName</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>I Card</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td>Last Month Balance</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">3</th>
+                                        <td>PTA</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">4</th>
+                                        <td>Exam</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end: page -->
+    </section>
+</div>
+
