@@ -38,7 +38,7 @@
     <script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/build/ol.js"></script>
     <style>
         .nav-pills > li {
-            margin-right: 40px; 
+            margin-right: 40px;
         }
     </style>
 
@@ -104,10 +104,10 @@
                                                         <i class="fa fa-add"></i> &nbsp; Add New Fee Group
                                                     </a>
                                                 </li>
-                                               @*  <li>
-                                                    <a class="nav-link" href="AssignFeeHead">
-                                                        <i class="fa fa-add"></i> &nbsp; Assign Fee Head 
-                                                    </a>
+                                                @*  <li>
+                                                <a class="nav-link" href="AssignFeeHead">
+                                                <i class="fa fa-add"></i> &nbsp; Assign Fee Head
+                                                </a>
                                                 </li> *@
                                                 <li>
                                                     <a class="nav-link" href="AssignFeeHeadToFeeGroup">
@@ -124,10 +124,10 @@
                                                         <i class="fa fa-add"></i> &nbsp; Assign Fee Group to Students
                                                     </a>
                                                 </li>
-                                               @*  <li>
-                                                    <a class="nav-link" href="AssignManaulFeeHead">
-                                                        <i class="fa fa-add"></i> &nbsp; Assign Manual Fee Head
-                                                    </a>
+                                                @*  <li>
+                                                <a class="nav-link" href="AssignManaulFeeHead">
+                                                <i class="fa fa-add"></i> &nbsp; Assign Manual Fee Head
+                                                </a>
                                                 </li> *@
                                             </ul>
                                         </li>
@@ -365,7 +365,7 @@
                                             <a class="nav-link" href="#">
                                                 <i class="fa fa-add"></i> &nbsp; Cheque Payments
                                             </a>
-                                        </li>                                      
+                                        </li>
                                     </ul>
                                 </li>
                                 <li class="dropdown">
@@ -384,18 +384,18 @@
                                             </a>
                                         </li>
                                     </ul>
-                                </li>                            
+                                </li>
                                 <li>
                                     <a href="#">
                                         Backup
-                                    </a>                                 
+                                    </a>
                                 </li>
 
-                               
-                                </ul>
-                                </nav>
+
+                            </ul>
+                        </nav>
                     </div>
-                        
+
                     <button class="btn header-btn-collapse-nav d-lg-none newOverlay" data-bs-toggle="collapse"
                             data-bs-target=".header-nav">
                     </button>
@@ -474,7 +474,10 @@
                                 <a role="menuitem" tabindex="-1" href="#"><i class="bx bx-user-circle"></i> My Profile</a>
                             </li>
                             <li>
-                                <a role="menuitem" tabindex="-1" href="~/Auth/Login"><i class="bx bx-power-off"></i> Logout</a>
+                                @* <a role="menuitem" tabindex="-1" href="~/Auth/Login"><i class="bx bx-power-off"></i> Logout</a> *@
+                                <form asp-controller="Auth" asp-action="Logout" method="post">
+                                    <button type="submit" id="cancelThis" @* onclick="cancelThis" *@ class="dropdown-item"><i class="bx bx-power-off"></i> Logout</button>
+                                </form>
                             </li>
                         </ul>
                     </div>
@@ -535,7 +538,7 @@
     @*<script src="https://cdnjs.cloudflare.com/ajax/libs/openlayers/4.6.5/ol.js"></script>*@
     <script src="~/js/map.js"></script>
 
-    <script>
+    @* <script>
         document.getElementById('cancelThis').onclick = function () {
             swal({
                 title: "Do you want to Leave?",
@@ -550,13 +553,31 @@
             },
                 function (isConfirm) {
                     if (isConfirm) {
-                         window.location.href = "/ARH/Home/Home";
+                        window.location.href = "/ARH/Home/Home";
                     } else {
                         location.reload();
                     }
                 });
         };
-    </script>
+    </script> *@
+    @* <script>
+        window.addEventListener('popstate', function (event) {
+            var logoutConfirm = confirm("Do you wanna logout?");
+            if (logoutConfirm) {
+                // Perform logout operation here
+                alert("Logging out...");
+                // For demonstration, we redirect to a logout URL (you can change this to your actual logout logic)
+                window.location.href = "/ARH/Home/Home"; // Change this to your logout URL
+            } else {
+                // User chose to stay, we need to push the state again to keep the user on the same page
+                history.pushState(null, null, location.href);
+            }
+        });
+
+        // Push an initial state to the history to make sure the popstate event triggers when back button is clicked
+        history.pushState(null, null, location.href);
+    </script> *@
+
     <script>
         $(function () {
             $("#datepicker").datepicker({
@@ -565,6 +586,7 @@
             }).datepicker('update', new Date());
         });
     </script>
+
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

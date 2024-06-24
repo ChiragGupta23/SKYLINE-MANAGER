@@ -1,271 +1,258 @@
 ﻿@{
-	ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home Page";
 }
 
 @{
-	Layout = "";
+    Layout = "";
 }
+@model ARH.Models.LoginRequest
 
 <!doctype html>
 <html class="fixed">
 <head>
-	<!-- Basic -->
-	<meta charset="UTF-8">
-	<meta name="keywords" content="" />
-	<meta name="description" content="">
-	<meta name="author" content="">
-	<!-- Mobile Metas -->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-	<!-- Web Fonts  -->
-	<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
-	<!-- Vendor CSS -->
-	<link rel="stylesheet" href="~/vendor/bootstrap/css/bootstrap.css" />
-	<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-	<!-- Specific Page Vendor CSS -->
-	<!-- Theme CSS -->
-	<link rel="stylesheet" href="~/css/theme.css" />
-	<link rel="stylesheet" href="~/vendor/font-awesome/css/all.min.css" />
-	<link rel="stylesheet" href="~/vendor/boxicons/css/boxicons.min.css" />
-	<!-- Theme Custom CSS -->
-	<link rel="stylesheet" href="~/css/custom.css">
-	<!-- Head Libs -->
-	<script src="~/vendor/modernizr/modernizr.js"></script>
-	<style>
-		/*body{
-			background: url(../img/bg1.jpg);
-		}*/
-		header {
-			box-shadow: -1px 0px 5px #0000003d;
-		}
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <!-- Basic -->
+    <meta charset="UTF-8">
+    <meta name="keywords" content="" />
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <!-- Web Fonts  -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+    <!-- Vendor CSS -->
+    <link rel="stylesheet" href="~/vendor/bootstrap/css/bootstrap.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/theme.css" />
+    <link rel="stylesheet" href="~/vendor/font-awesome/css/all.min.css" />
+    <link rel="stylesheet" href="~/vendor/boxicons/css/boxicons.min.css" />
+    <link rel="stylesheet" href="~/css/custom.css">
+    <!-- Head Libs -->
+    <script src="~/vendor/modernizr/modernizr.js"></script>
+    <style>
+        header {
+            box-shadow: -1px 0px 5px #0000003d;
+        }
 
-		.card {
-			border-radius: 30px;
-			background: linear-gradient(0deg, #FFF 0%, #FFF 100%), url(<path-to-image>), lightgray 50% / cover no-repeat;
-			box-shadow: 10px 10px 3px 0px rgba(255, 255, 255, 0.25);
-		}
+        .card {
+            border-radius: 30px;
+            background: linear-gradient(0deg, #FFF 0%, #FFF 100%), url(<path-to-image>), lightgray 50% / cover no-repeat;
+            box-shadow: 10px 10px 3px 0px rgba(255, 255, 255, 0.25);
+        }
 
-		.field-icon {
-			float: right;
-    margin-right: 8px;
-    margin-top: -36px;
-    background: #c7ddf1;
-    position: relative;
-    z-index: 2;
-    font-size: 12px;
-    width: 25px;
-    height: 25px;
-    color: #70addf;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50px;
-		}
+        .field-icon {
+            float: right;
+            margin-right: 8px;
+            margin-top: -36px;
+            background: #c7ddf1;
+            position: relative;
+            z-index: 2;
+            font-size: 12px;
+            width: 25px;
+            height: 25px;
+            color: #70addf;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50px;
+        }
 
-		.centered {
-			padding: 150px 0 0 0;
-			width: 60%;
-			margin: 0 auto;
-		}
-		.AppForm .AppFormLeft h1 {
-			font-size: 35px;
-		}
+        .centered {
+            padding: 150px 0 0 0;
+            width: 60%;
+            margin: 0 auto;
+        }
 
-		.AppForm .AppFormLeft input:focus {
-			border-color: #ced4da;
-		}
+        .AppForm .AppFormLeft h1 {
+            font-size: 35px;
+        }
 
-		.AppForm .AppFormLeft input::placeholder {
-			font-size: 15px;
-		}
+        .AppForm .AppFormLeft input:focus {
+            border-color: #ced4da;
+        }
 
-		.AppForm .AppFormLeft i {
-			position: absolute;
-			left: 5px;
-			top: 65%;
-			transform: translateY(-50%);
-		}
+        .AppForm .AppFormLeft input::placeholder {
+            font-size: 15px;
+        }
 
-		.loginBTN {
-			background: linear-gradient(45deg,#0065bd,#0344a5);
-			color: #fff;
-			border: 1px solid #0065bd !important;
-		}
+        .AppForm .AppFormLeft i {
+            position: absolute;
+            left: 5px;
+            top: 65%;
+            transform: translateY(-50%);
+        }
 
-		.loginBTN:hover {
-			border: 1px solid #0065bd !important;
-			background: #fff !important;
-				color: #0065bd !important;
-		}
+        .loginBTN {
+            background: linear-gradient(45deg,#0065bd,#0344a5);
+            color: #fff;
+            border: 1px solid #0065bd !important;
+        }
 
-			.loginBTN:active {
-				border: 1px solid #0065bd !important;
-				background: #fff !important;
-				color: #0065bd !important;
-			}
+            .loginBTN:hover {
+                border: 1px solid #0065bd !important;
+                background: #fff !important;
+                color: #0065bd !important;
+            }
 
-		.AppForm .AppFormLeft p span {
-			color: #007bff;
-		}
+            .loginBTN:active {
+                border: 1px solid #0065bd !important;
+                background: #fff !important;
+                color: #0065bd !important;
+            }
 
-        /*(https://www.clinicassam.com/Configuration/Custom/AdminLoginBg.jpg)
-                (https://www.crowdfunder.co.uk/uploads/project_images/c8/f2/201442/201442-4559e902e0d038eed851b7ed237f5a6d.jpg)
-				(https://assets.traveltriangle.com/blog/wp-content/uploads/2020/01/Buachaille-Etive-Mor_11th-jan.jpg)*/
+        .AppForm .AppFormLeft p span {
+            color: #007bff;
+        }
 
-		.AppForm .AppFormRight {
-			background-image: url('../img/Login/NewLOGIN.png');
-			height: 450px;
-/*			background-size: cover;*/			
-background-position: center;
-		}
+        .AppForm .AppFormRight {
+            background-image: url('../img/Login/NewLOGIN.png');
+            height: 450px;
+            background-position: center;
+        }
 
-			.AppForm .AppFormRight:after {
-				content: "";
-				position: absolute;
-				width: 100%;
-				height: 100%;
-				opacity: 0.5;
-			}
+            .AppForm .AppFormRight:after {
+                content: "";
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                opacity: 0.5;
+            }
 
-			.AppForm .AppFormRight h2 {
-				z-index: 1;
-			}
+            .AppForm .AppFormRight h2 {
+                z-index: 1;
+            }
 
-				.AppForm .AppFormRight h2::after {
-					content: "";
-					position: absolute;
-					width: 100%;
-					height: 2px;
-					background-color: #fff;
-					bottom: 0;
-					left: 50%;
-					transform: translateX(-50%);
-				}
+                .AppForm .AppFormRight h2::after {
+                    content: "";
+                    position: absolute;
+                    width: 100%;
+                    height: 2px;
+                    background-color: #fff;
+                    bottom: 0;
+                    left: 50%;
+                    transform: translateX(-50%);
+                }
 
-			.AppForm .AppFormRight p {
-				z-index: 1;
-			}
+            .AppForm .AppFormRight p {
+                z-index: 1;
+            }
 
-	</style>
+    </style>
 </head>
 <body>
-	<!-- start: page -->
-	<section class="body-sign" style="height:100vh;">
-		<header class="header header-nav-menu header-nav-top-line">
-			<div class="logo-container">
-				<a href="~/Home/Index" class="logo">
-					<img src="~/img/logo_bg.png" width="150" height="45" alt="">
-				</a>
-			</div>
-			<!-- start: search & user box -->
-			 @* <div class="header-right d-flex align-items-center">
-				<a href="~/Home/CompanyRegistration" class="btn btn-white"><img src="~/img/Login/com-reg-1.png" width="30px" /> Company Registration</a>
-				<span class="mx-3 d-none d-md-block d-lg-block">|</span>
-				<a href="~/Auth/Login" class="btn"><img src="~/img/Login/login.png" width="20px" /> Log In</a>
-				<span class="mx-3 d-none d-md-block d-lg-block">|</span>
-				<a href="#" class="btn"><img src="~/img/Login/Contact.png" width="20px" /> Contact Us</a>
-			</div>  *@
-			<!-- end: search & user box -->
-		</header>
+    <!-- start: page -->
+    <section class="body-sign" style="height:100vh;">
+        <header class="header header-nav-menu header-nav-top-line">
+            <div class="logo-container">
+                <a href="~/Home/Index" class="logo">
+                    <img src="~/img/logo_bg.png" width="150" height="45" alt="">
+                </a>
+            </div>
+        </header>
+
+        <div class="centered">
+            <div>
+                <div>
+                    <div class="row h-100 justify-content-center align-items-center">
+                        <form asp-action="Login" id="loginForm" class="col-md-9">
+                            <div class="AppForm shadow-lg">
+                                <div class="row bg-white" style="padding: 10px;">
+                                    <div class="col-md-6 d-none d-md-block d-lg-block" style="padding: 0;">
+                                        <div class="AppFormRight position-relative d-flex justify-content-center flex-column align-items-center text-center p-5 text-white">
+                                            @*<img src="~/img/Login/logo-white.png" width="250px" />*@
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 d-flex justify-content-center align-items-center">
+                                        <div class="AppFormLeft w-100 p-4">
+                                            <h2 class="text-center d-flex align-items-center justify-content-center mb-2" style="margin-top:-20px;color: #024aa9;">Login</h2>
+                                            <div class="form-group position-relative">
+                                                <label>Username or Email</label>
+                                                <input asp-for="Email" type="email" class="form-control" style="border-radius: 5px !important; padding: 10px 10px 10px 50px" id="Email"
+                                                       placeholder="Username or Email">
+                                                <i style="background: #0065bd38;width: 35px;height: 35px;border-radius: 5px;">
+                                                    <img style="width: 30px;margin-left: 2px;margin-top: 2px;" src="~/img/Login/user.png" />
+                                                </i>
+                                            </div>
+                                            <span style="font-size:9px;color:red;" asp-validation-for="Email"></span><br />
+                                            <div class="form-group position-relative mb-4">
+                                                <label>Password</label>
+                                                <input asp-for="Password" type="password" id="password-field" class="form-control" style="border-radius: 5px !important; padding: 10px 10px 10px 50px" id="password"
+                                                       placeholder="Password">
+                                                <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                                <i style="background: #0065bd38;width: 35px;height: 35px;border-radius: 5px;top: 49%;">
+                                                    <img style="width: 30px;margin-left: 2px;margin-top: 2px;" src="~/img/Login/password.png" />
+                                                </i>
+                                                <span style="font-size:9px;color:red;" asp-validation-for="Password"></span><br />
+                                            </div>
+                                            <div class="row  mt-4 mb-2">
+                                                <div class="col-md-12">
+                                                    <div class="g-recaptcha" data-sitekey="6Le1pPgpAAAAAMjhIxul5uu3vz04UeaREDNj3sS9" style="transform:scale(0.8);transform-origin:0 0"></div>
+                                                </div>
+                                                <div class="col-md-6 d-flex mt-3">
+                                                    <div class="checkbox-custom chekbox-primary">
+                                                        <input id="for-remember" value="remember" type="checkbox" name="remember">
+                                                        <label for="for-remember" style="color:grey;font-size:12px;"> Remember Me </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 mt-3">
+                                                    <a class="pull-right" href="ForgotPassword" style="font-size:12px">Forgot Password?</a>
+                                                </div>
+                                            </div>
+
+                                            @* <button type="submit" class="btn loginBTN shadow border-0 py-2 text-uppercase w-100" asp-controller="Auth" asp-action="Login">
+                                            Login
+                                            </button> *@
+                                            <input type="submit" value="Login" class="btn loginBTN shadow border-0 py-2 text-uppercase w-100" asp-controller="Auth" asp-action="Login" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end: page -->
+    <!-- Vendor -->
+    <script src="~/vendor/jquery/jquery.js"></script>
+    <script src="~/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
+    <script src="~/vendor/popper/umd/popper.min.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="~/vendor/common/common.js"></script>
+    <script src="~/vendor/nanoscroller/nanoscroller.js"></script>
+    <script src="~/vendor/magnific-popup/jquery.magnific-popup.js"></script>
+    <script src="~/vendor/jquery-placeholder/jquery.placeholder.js"></script>
+    <!-- Theme Base, Components and Settings -->
+    <script src="~/js/theme.js"></script>
+    <!-- Theme Custom -->
+    <script src="~/js/custom.js"></script>
+    <!-- Theme Initialization Files -->
+    <script src="~/js/theme.init.js"></script>
+    <script>
+        $(document).ready(function () {
+            console.log("ready!");
+            const searchParams = new URLSearchParams(window.location.search);
+
+            console.log(window.location.search);
+            if (searchParams.has('errorMessage')) {
+                alert(searchParams.get('errorMessage'))
+            }
+
+        });
 
 
-		<div class="centered">
-			<div>
-				<div>
-					<div class="row h-100 justify-content-center align-items-center">
-						<form class="col-md-9">
-							<div class="AppForm shadow-lg">
-								<div class="row bg-white" style="padding: 10px;">
-									<div class="col-md-6 d-none d-md-block d-lg-block" style="padding: 0;">
-										<div class="AppFormRight position-relative d-flex justify-content-center flex-column align-items-center text-center p-5 text-white">
-											@*<img src="~/img/Login/logo-white.png" width="250px" />*@
-										</div>
-									</div>
-									<div class="col-md-6 d-flex justify-content-center align-items-center">
-										
-										<div class="AppFormLeft w-100 p-4">
-											<h2 class="text-center d-flex align-items-center justify-content-center mb-2" style="margin-top:-20px;color: #024aa9;">Login</h2>
-											<div class="form-group position-relative">
-												<label>Username or Email</label>
-												<input type="text" class="form-control" style="border-radius: 5px !important; padding: 10px 10px 10px 50px" id="username"
-													   placeholder="Username or Email">
-												<i style="background: #0065bd38;width: 35px;height: 35px;border-radius: 5px;">
-													<img style="width: 30px;margin-left: 2px;margin-top: 2px;" src="~/img/Login/user.png" />
-												</i>
-											</div>
-											<div class="form-group position-relative mb-4">
-												<label>Password</label>
-												<input type="password" id="password-field" class="form-control" style="border-radius: 5px !important; padding: 10px 10px 10px 50px" id="password"
-													   placeholder="Password">
-												<span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
-												<i style="background: #0065bd38;width: 35px;height: 35px;border-radius: 5px;top: 72%;">
-													<img style="width: 30px;margin-left: 2px;margin-top: 2px;" src="~/img/Login/password.png" />
-												</i>
-
-											</div>
-											<div class="row  mt-4 mb-2">
-												<div class="col-md-12">
-													<img src="~/img/Login/newCaptchaAnchor.png" width="100%" />
-												</div>
-												<div class="col-md-6 d-flex mt-3">
-													<div class="checkbox-custom chekbox-primary">
-														<input id="for-remember" value="remember" type="checkbox" name="remember" required="">
-														<label for="for-remember" style="color:grey"> Remember Me </label>
-													</div>
-												</div>
-													<div class="col-md-6 mt-3">
-														<a class="pull-right" href="ForgotPassword">Forgot Password?</a>
-													</div>
-												
-											</div>
-
-											<a href="~/Home/Home" class="btn loginBTN shadow border-0 py-2 text-uppercase w-100">
-												Login
-											</a>
-
-										</div>
-
-									</div>
-									
-								</div>
-							</div>
-
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- end: page -->
-	<!-- Vendor -->
-	<script src="~/vendor/jquery/jquery.js"></script>
-	<script src="~/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
-	<script src="~/vendor/popper/umd/popper.min.js"></script>
-	<script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script src="~/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-	<script src="~/vendor/common/common.js"></script>
-	<script src="~/vendor/nanoscroller/nanoscroller.js"></script>
-	<script src="~/vendor/magnific-popup/jquery.magnific-popup.js"></script>
-	<script src="~/vendor/jquery-placeholder/jquery.placeholder.js"></script>
-	<!-- Specific Page Vendor -->
-	<!-- Theme Base, Components and Settings -->
-	<script src="~/js/theme.js"></script>
-	<!-- Theme Custom -->
-	<script src="~/js/custom.js"></script>
-	<!-- Theme Initialization Files -->
-	<script src="~/js/theme.init.js"></script>
-	<script>
-		$(".toggle-password").click(function () {
-
-			$(this).toggleClass("fa-eye fa-eye-slash");
-			var input = $($(this).attr("toggle"));
-			if (input.attr("type") == "password") {
-				input.attr("type", "text");
-			} else {
-				input.attr("type", "password");
-			}
-		});
-	</script>
+        $(".toggle-password").click(function () {
+            $(this).toggleClass("fa-eye fa-eye-slash");
+            var input = $($(this).attr("toggle"));
+            if (input.attr("type") == "password") {
+                input.attr("type", "text");
+            } else {
+                input.attr("type", "password");
+            }
+        });
+    </script>
 </body>
 </html>
