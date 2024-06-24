@@ -1,4 +1,100 @@
-﻿<!DOCTYPE html>
+﻿@* @section Scripts
+{
+    <script>
+        $(function () {
+            window.addEventListener('popstate', function (event) {
+                confirm('df')
+
+            }, false)
+        });
+        // window.onhashchange = function () {
+        //     alert(10)
+        // }
+        // window.addEventListener('popstate', function (event) {
+        //     alert(11)
+
+        // }, false)
+
+        // $(window).on('popstate', function (e) {
+        //    alert(12)
+        // });
+    </script>
+} *@
+
+
+
+@* <script>
+    document.getElementById('cancelThis').onclick = function () {
+        swal({
+            title: "Do you want to Leave?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: '#DD6B55',
+            confirmButtonText: 'Yes, Leave it!',
+            cancelButtonText: "No, I want to stay!",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+            function (isConfirm) {
+                if (isConfirm) {
+                    window.location.href = "/Auth/Logout";
+                } else {
+                    location.reload();
+                }
+            });
+    };
+</script>  *@
+
+ @* <script>
+    $(function () {
+        window.history.pushState({ page: 1 }, "", "");
+        window.onpopstate = function (event) {
+            if (event) {
+                var confirm = window.confirm("Are you Sure you want to logout");
+            }
+        }
+    });
+</script>
+ <script>
+    window.onbeforeunload = function (e) {
+        var message = "Are you sure you want to leave this page?";
+        if (typeof e == "undefined") {
+            e = window.event;
+        }
+        if (e) {
+            e.returnValue = message;
+        }
+        return message;
+    };
+</script>  *@
+
+@* <script>
+    document.getElementById('logoutForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var form = this;
+        swal({
+            title: "Do you want to logout?",
+            text: "You will be logged out of the application.",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, logout!",
+            cancelButtonText: "No, stay!",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+            function (isConfirm) {
+                if (isConfirm) {
+                    form.submit();
+                } else {
+                    swal.close();
+                }
+            });
+    });
+</script> *@
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,6 +106,9 @@
     <section role="main" class="content-body">
         <!-- Your main content here -->
     </section>
+    
   
 </body>
+
+
 </html>
