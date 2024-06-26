@@ -18,7 +18,7 @@ public partial class UserauthdbContext : DbContext
 	{
 	}
 
-	public virtual DbSet<User> Users { get; set; }
+	public DbSet<User> Users { get; set; }
 	public DbSet<ARH.Models.LoginRequest> loginRequests { get; set; }
 
 	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

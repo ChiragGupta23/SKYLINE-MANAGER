@@ -1,11 +1,14 @@
 ﻿using ARH.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Linq;
 using reg_login.Models;
+using Skyline_Manager.EmailServices;
+using Skyline_Manager.Util;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http;
@@ -13,6 +16,7 @@ using System.Net.Http.Json;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace ARH.Controllers
 {
@@ -33,7 +37,7 @@ namespace ARH.Controllers
         public IActionResult Index()
         {
             if (User.Identity.IsAuthenticated)
-              return RedirectToAction("Home", "Home");
+                return RedirectToAction("Home", "Home");
             return View();
         }
 
@@ -54,14 +58,14 @@ namespace ARH.Controllers
 
         [HttpPost("login")]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(LoginRequest loginRequest)
+        public async Task<IActionResult> Login(Models.LoginRequest loginRequest)
         {
             if (!ModelState.IsValid)
             {
                 return View();
             }
 
-            //Verify reCAPTCHA
+            // Verify reCAPTCHA
             var reCaptchaResponse = Request.Form["g-recaptcha-response"];
             var isCaptchaValid = await VerifyReCaptcha(reCaptchaResponse);
             if (!isCaptchaValid)
@@ -75,14 +79,21 @@ namespace ARH.Controllers
                 return Redirect("Auth/Login?errorMessage=Invalid Email or Password");
             }
 
-            var tokenString = GenerateJSONWebToken(user);
-            Response.Cookies.Append("JwtToken", tokenString, new CookieOptions { HttpOnly = true });
+            var tokenString = GenerateJSONWebToken(user, loginRequest.RememberMe);
+
+            var cookieOptions = new CookieOptions
+            {
+                HttpOnly = true,
+                Expires = loginRequest.RememberMe ? DateTime.Now.AddDays(30) : (DateTime?)null
+            };
+
+            Response.Cookies.Append("JwtToken", tokenString, cookieOptions);
 
             return RedirectToAction("Home", "Home");
         }
 
         [HttpPost("Logout")]
-        [Authorize] //AllowAnnounymously
+        [Authorize]
         public IActionResult Logout()
         {
             Response.Cookies.Delete("JwtToken");
@@ -111,8 +122,7 @@ namespace ARH.Controllers
             return false;
         }
 
-
-        private string GenerateJSONWebToken(User user)
+        private string GenerateJSONWebToken(User user, bool rememberMe)
         {
             var jwtSettings = _configuration.GetSection("Jwt");
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Key"]));
@@ -130,16 +140,75 @@ namespace ARH.Controllers
                 issuer: jwtSettings["Issuer"],
                 audience: jwtSettings["Audience"],
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(Convert.ToDouble(jwtSettings["ExpiryMinutes"])),
+                expires: rememberMe ? DateTime.Now.AddDays(30) : DateTime.Now.AddMinutes(Convert.ToDouble(jwtSettings["ExpiryMinutes"])),
                 signingCredentials: creds);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
+        [AllowAnonymous]
         public IActionResult ForgotPassword()
         {
             return View();
         }
+
+        [HttpPost("ForgotPassword")]
+        [AllowAnonymous]
+        public async Task<IActionResult> ForgotPassword(Models.ForgotPassword forgotPasswordModel)
+        {
+            bool flag = false;
+            //if (!ModelState.IsValid)
+            //    return View(forgotPasswordModel);
+            if (forgotPasswordModel.Email == null)
+            {
+                TempData["ErrorMsg"] = "Please enter your registered email address";
+                return View(forgotPasswordModel);
+            }
+
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == forgotPasswordModel.Email);
+            AppSettings appSettings = new AppSettings();
+
+            if (user != null)
+            {
+                string tokenValue = Utilities.RandomString(10, true);
+                user.VerificationCode = tokenValue;
+                _context.Users.Update(user);
+                _context.SaveChanges();
+                var lnkHref = "<a href='" + Url.Action("ResetPassword", "Account", new { email = forgotPasswordModel.Email, token = tokenValue }, "https") + "'>click here to reset your password</a>";
+                string body = appSettings.Body + "<br />" + lnkHref +
+                    "<br /><br /><br />" + appSettings.Signature;
+                flag = EmailManager.SendEmail(forgotPasswordModel.Email, "Password Reset Link", body);
+                if (flag)
+                {
+                    return RedirectToAction(nameof(ForgotPasswordConfirmation));
+                }
+                else
+                {
+                    TempData["ErrorMsg"] = "Something went wrong, while sending an email ID.";
+                    return View(forgotPasswordModel);
+                }
+            }
+            else
+            {
+                TempData["ErrorMsg"] = "Something went wrong, while verifying your account";
+                return View(forgotPasswordModel);
+            }
+
+            return RedirectToAction(nameof(ForgotPasswordConfirmation));
+        }
+
+        public IActionResult ForgotPasswordConfirmation()
+        {
+            return View();
+        }
+
+       // Reset password
+       //[HttpGet]
+       // public IActionResult ResetPassword(string email, string token)
+       // {
+       //     var model = new ResetPassword { Token = email, Email = token };
+       //     return View(model);
+       // }
     }
 }
 // Branch created by archana//

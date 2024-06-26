@@ -191,8 +191,8 @@
                                                 </div>
                                                 <div class="col-md-6 d-flex mt-3">
                                                     <div class="checkbox-custom chekbox-primary">
-                                                        <input id="for-remember" value="remember" type="checkbox" name="remember">
-                                                        <label for="for-remember" style="color:grey;font-size:12px;"> Remember Me </label>
+                                                        <input asp-for="RememberMe" type="checkbox" id="rememberMe" name="RememberMe">
+                                                        <label for="rememberMe" style="color:grey;font-size:12px;"> Remember Me </label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 mt-3">
@@ -233,25 +233,40 @@
     <script src="~/js/theme.init.js"></script>
     <script>
         $(document).ready(function () {
-            console.log("ready!");
             const searchParams = new URLSearchParams(window.location.search);
-
-            console.log(window.location.search);
             if (searchParams.has('errorMessage')) {
-                alert(searchParams.get('errorMessage'))
+                alert(searchParams.get('errorMessage'));
             }
 
-        });
-
-
-        $(".toggle-password").click(function () {
-            $(this).toggleClass("fa-eye fa-eye-slash");
-            var input = $($(this).attr("toggle"));
-            if (input.attr("type") == "password") {
-                input.attr("type", "text");
-            } else {
-                input.attr("type", "password");
+            // Load email and password if "Remember Me" was checked
+            if (localStorage.getItem("rememberMe") === "true") {
+                $("#Email").val(localStorage.getItem("email"));
+                $("#password-field").val(localStorage.getItem("password"));
+                $("#rememberMe").prop("checked", true);
             }
+
+            // Save email and password if "Remember Me" is checked on submit
+            $("#loginForm").on("submit", function (e) {
+                if ($("#rememberMe").is(":checked")) {
+                    localStorage.setItem("email", $("#Email").val());
+                    localStorage.setItem("password", $("#password-field").val());
+                    localStorage.setItem("rememberMe", true);
+                } else {
+                    localStorage.removeItem("email");
+                    localStorage.removeItem("password");
+                    localStorage.removeItem("rememberMe");
+                }
+            });
+
+            $(".toggle-password").click(function () {
+                $(this).toggleClass("fa-eye fa-eye-slash");
+                var input = $($(this).attr("toggle"));
+                if (input.attr("type") === "password") {
+                    input.attr("type", "text");
+                } else {
+                    input.attr("type", "password");
+                }
+            });
         });
     </script>
 </body>
