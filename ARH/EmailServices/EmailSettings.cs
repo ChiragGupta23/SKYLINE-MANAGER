@@ -1,14 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using System.Security.Cryptography.Xml;
 
-namespace Skyline_Manager.Util
+namespace Skyline_Manager.EmailServices
 {
-	public class AppSettings
-	{
-		internal string Key = null;
-		internal string Issuer = null;
-		internal string Audience = null;
-
-
+    public class EmailSettings
+    {
         internal string EmailSenderAccount = null;
         internal string EmailSenderName = null;
         internal string EmailSenderAccountSecret = null;
@@ -16,12 +11,12 @@ namespace Skyline_Manager.Util
         internal string Host = null;
         internal string Body = "";
         internal string Signature = "";
-     
 
 
-        public AppSettings()
-		{
-			var configuation = GetConfiguration();
+
+        public EmailSettings()
+        {
+            var configuation = GetConfiguration();
             EmailSenderAccount = configuation.GetSection("AppSettings").GetSection("EmailSenderAccount").Value;
             EmailSenderName = configuation.GetSection("AppSettings").GetSection("EmailSenderName").Value;
             EmailSenderAccountSecret = configuation.GetSection("AppSettings").GetSection("EmailSenderAccountSecret").Value;
@@ -30,23 +25,15 @@ namespace Skyline_Manager.Util
             Body = configuation.GetSection("AppSettings").GetSection("Body").Value;
             Signature = configuation.GetSection("AppSettings").GetSection("Signature").Value;
 
-            Key = configuation.GetSection("Jwt").GetSection("Key").Value;
-			Issuer = configuation.GetSection("Jwt").GetSection("Issuer").Value;
-			Audience = configuation.GetSection("Jwt").GetSection("Audience").Value;
+        }
 
+        public IConfigurationRoot GetConfiguration()
+        {
+            var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+            return builder.Build();
 
+        }
 
-
-		}
-		public IConfigurationRoot GetConfiguration()
-		{
-			var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory())
-				.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
-			return builder.Build();
-
-		}
-
-	}
+    }
 }
-
-
