@@ -1,6 +1,6 @@
 ﻿using ARH.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -16,7 +16,6 @@ using System.Net.Http.Json;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-
 
 namespace ARH.Controllers
 {
@@ -149,6 +148,8 @@ namespace ARH.Controllers
         [AllowAnonymous]
         public IActionResult ForgotPassword()
         {
+            if (User.Identity.IsAuthenticated)
+                return RedirectToAction("Home", "Home");
             return View();
         }
 
@@ -156,9 +157,10 @@ namespace ARH.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> ForgotPassword(Models.ForgotPassword forgotPasswordModel)
         {
+            if (User.Identity.IsAuthenticated)
+                return RedirectToAction("Home", "Home");
+
             bool flag = false;
-            //if (!ModelState.IsValid)
-            //    return View(forgotPasswordModel);
             if (forgotPasswordModel.Email == null)
             {
                 TempData["ErrorMsg"] = "Please enter your registered email address";
@@ -174,7 +176,7 @@ namespace ARH.Controllers
                 user.VerificationCode = tokenValue;
                 _context.Users.Update(user);
                 _context.SaveChanges();
-                var lnkHref = "<a href='" + Url.Action("ResetPassword", "Account", new { email = forgotPasswordModel.Email, token = tokenValue }, "https") + "'>click here to reset your password</a>";
+                var lnkHref = "<a href='" + Url.Action("ResetPassword", "Auth", new { email = forgotPasswordModel.Email, token = tokenValue }, "https") + "'>click here to reset your password</a>";
                 string body = appSettings.Body + "<br />" + lnkHref +
                     "<br /><br /><br />" + appSettings.Signature;
                 flag = EmailManager.SendEmail(forgotPasswordModel.Email, "Password Reset Link", body);
@@ -197,18 +199,77 @@ namespace ARH.Controllers
             return RedirectToAction(nameof(ForgotPasswordConfirmation));
         }
 
+        [HttpGet]
         public IActionResult ForgotPasswordConfirmation()
         {
+            if (User.Identity.IsAuthenticated)
+                return RedirectToAction("Home", "Home");
             return View();
         }
 
-       // Reset password
-       //[HttpGet]
-       // public IActionResult ResetPassword(string email, string token)
-       // {
-       //     var model = new ResetPassword { Token = email, Email = token };
-       //     return View(model);
-       // }
+        [HttpGet]
+        public IActionResult ResetPassword(string email, string token, Models.ResetPassword RP)
+        {
+            if (User.Identity.IsAuthenticated)
+                return RedirectToAction("Home", "Home");
+
+            var model = new ResetPassword { Token = email, Email = token };
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ResetPassword(ResetPassword resetPasswordModel)
+        {
+            if (User.Identity.IsAuthenticated)
+                return RedirectToAction("Home", "Home");
+
+            if (resetPasswordModel.Password == null || resetPasswordModel.Password == "")
+            {
+                TempData["ErrorMsg"] = "Please enter password";
+                return View(resetPasswordModel);
+            }
+            if (resetPasswordModel.ConfirmPassword == null || resetPasswordModel.ConfirmPassword == "")
+            {
+                TempData["ErrorMsg"] = "Please enter confirm password";
+                return View(resetPasswordModel);
+            }
+            if (resetPasswordModel.Password.ToString() != resetPasswordModel.ConfirmPassword.ToString())
+            {
+                TempData["ErrorMsg"] = "Confirm password doesn't match the password";
+                return View(resetPasswordModel);
+            }
+
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == resetPasswordModel.Email);
+            if (user != null)
+            {
+                if (user.VerificationCode.ToString() == resetPasswordModel.Token.ToString())
+                {
+                    user.Password = BCrypt.Net.BCrypt.HashPassword(resetPasswordModel.Password);
+                    _context.Users.Update(user);
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    TempData["ErrorMsg"] = "Something went wrong while resetting your password";
+                    return View(resetPasswordModel);
+                }
+            }
+            else
+            {
+                TempData["ErrorMsg"] = "Something went wrong while resetting your password";
+                return View(resetPasswordModel);
+            }
+            return RedirectToAction(nameof(ResetPasswordConfirmation));
+        }
+
+        [HttpGet]
+        public IActionResult ResetPasswordConfirmation()
+        {
+            if (User.Identity.IsAuthenticated)
+                return RedirectToAction("Home", "Home");
+            return View();
+        }
     }
 }
 // Branch created by archana//
